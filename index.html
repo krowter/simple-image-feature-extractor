@@ -1,0 +1,30 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <button id="start">Start</button>
+    <br />
+
+    <video autoplay muted loop controls id="video" width="400" height="300"></video>
+
+    <div>
+        <button id="capture">Capture</button>
+        <input id="label" />
+    </div>
+
+    <br />
+
+    <button id="train">Train</button>
+    <button id="get-result">Get Result</button>
+
+    <h2 id="result">result</h2>
+
+    <canvas id="canvas" width="400" height="300"></canvas>
+    <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

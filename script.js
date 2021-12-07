@@ -12,6 +12,7 @@ const train = getElem("train");
 const input = getElem("label");
 const getResult = getElem("get-result");
 const resultText = getElem("result");
+const numClasses = getElem("num-classes");
 
 start.addEventListener("click", setup);
 capture.addEventListener("click", drawOnCanvas);
@@ -29,10 +30,15 @@ function videoReady() {
 }
 
 function setup() {
-  const mobilenet = ml5.featureExtractor("MobileNet", modalReady);
+  const mobilenet = ml5.featureExtractor(
+    "MobileNet",
+    { numLabels: parseInt(numClasses.value) },
+    modalReady
+  );
+
   classifier = mobilenet.classification(video, videoReady);
 
-  navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+  navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
     video.srcObject = stream;
   });
 }
@@ -49,7 +55,7 @@ function addImageToModel() {
 }
 
 function trainModel() {
-  classifier.train(lossValue => {
+  classifier.train((lossValue) => {
     console.log("Loss is", lossValue);
   });
 }
@@ -61,10 +67,10 @@ function getPrediction() {
 
       let final = {
         label: "",
-        confidence: 0
+        confidence: 0,
       };
 
-      results.forEach(result => {
+      results.forEach((result) => {
         if (result.confidence > final.confidence) {
           final = result;
         }
